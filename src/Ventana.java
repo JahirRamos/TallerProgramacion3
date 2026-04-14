@@ -9,6 +9,7 @@ public class Ventana {
     private JButton registrarboton;
     private JButton deshacerboton;
     private JTextArea textArea1;
+    private JButton contarAccionboton;
     private HistorialAcciones miHistorial;
 
     public Ventana() {
@@ -28,18 +29,39 @@ public class Ventana {
                 }
             }
         });
+        // BOTÓN DESHACER (UNIFICADO - Solo uno)
         deshacerboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    miHistorial.deshacerAccion();
-                    textArea1.setText(miHistorial.mostrarHistorial());
-                }catch (Exception ex){
-                    textArea1.setText(ex.getMessage());
-                }
+                if (miHistorial.estaVacio()) {
+                    textArea1.setText("Historial vacio");
+                    JOptionPane.showMessageDialog(null, "No hay acciones para deshacer.");
+                } else {
+                    try {
 
+                        String ultima = miHistorial.obtenerUltimaAccion();
+                        System.out.println("Deshaciendo: " + ultima);
+
+
+                        miHistorial.deshacerAccion();
+
+
+                        textArea1.setText(miHistorial.mostrarHistorial());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
             }
         });
+        contarAccionboton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              int cantidad = miHistorial.obtenerCantidadAcciones();
+
+              JOptionPane.showMessageDialog(null, "Total de acciones: "+cantidad);
+            }
+        });
+
     }
 
     public static void main (String[]args){

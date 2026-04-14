@@ -16,7 +16,7 @@ public class HistorialAcciones {
 
     }
     public String deshacerAccion() throws Exception {
-        if(historial.isEmpty()){
+        if(this.estaVacio()){
             throw new Exception("Nada que deshacer");
         }
         return historial.pop();
