@@ -12,7 +12,7 @@ public class HistorialAcciones {
     }
 
     public String obtenerUltimaAccion() {
-        // Mensaje esperado: Sin acciones
+
         return estaVacio() ? "Sin acciones" : historial.peek();
     }
 
@@ -31,7 +31,7 @@ public class HistorialAcciones {
     }
 
     public String mostrarHistorial() {
-        // Mensaje esperado: Historial vacío
+
         if (estaVacio()) {
             return "Historial vacío";
         }

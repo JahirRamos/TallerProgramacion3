@@ -14,18 +14,17 @@ public class Ventana {
 
     public Ventana() {
         miHistorial = new HistorialAcciones();
-        // Estado inicial en el área de texto
+
         textArea1.setText(miHistorial.mostrarHistorial());
 
-        // --- BOTÓN REGISTRAR ---
+
         registrarboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // .trim() elimina espacios al inicio y final
+
                     String accion = agregueaccionTextfield.getText().trim();
 
-                    // Restricción: No nulas, vacías o solo espacios
                     if (accion.isEmpty()) {
                         throw new Exception("Sin acciones");
                     }
@@ -40,27 +39,30 @@ public class Ventana {
             }
         });
 
-        // --- BOTÓN DESHACER ---
+
         deshacerboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (miHistorial.estaVacio()) {
-                        // Mensaje esperado: Nada que deshacer
                         throw new Exception("Nada que deshacer");
                     }
+
+
+                    String ultima = miHistorial.obtenerUltimaAccion();
 
                     miHistorial.deshacerAccion();
                     textArea1.setText(miHistorial.mostrarHistorial());
 
+
+                    JOptionPane.showMessageDialog(null, "Se deshizo la acción: " + ultima);
+
                 } catch (Exception ex) {
-                    textArea1.setText(miHistorial.mostrarHistorial());
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
 
-        // --- BOTÓN CONTAR ---
         contarAccionboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
