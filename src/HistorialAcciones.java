@@ -3,45 +3,38 @@ import java.util.Stack;
 public class HistorialAcciones {
     private Stack<String> historial;
 
-    public HistorialAcciones(){
-        historial=new Stack<>();
+    public HistorialAcciones() {
+        historial = new Stack<>();
     }
 
-    public void registrarAccion(String accion) throws Exception {
-        if (accion==null || accion.trim().isEmpty()){
-            throw new Exception("Accion no valida");
-
-        }
+    public void registrarAccion(String accion) {
         historial.push(accion);
-
     }
-    public String deshacerAccion() throws Exception {
-        if(this.estaVacio()){
-            throw new Exception("Nada que deshacer");
+
+    public String obtenerUltimaAccion() {
+        return estaVacio() ? "No hay acciones" : historial.peek();
+    }
+
+    public void deshacerAccion() {
+        if (!estaVacio()) {
+            historial.pop();
         }
-        return historial.pop();
     }
 
-    public String obtenerUltimaAccion() throws Exception {
-        if (historial.isEmpty()){
-            throw new Exception("Sin accion");
-
-        }
-        return historial.peek();
-    }
-
-    public String mostrarHistorial(){
-        String resultado = "";
-        for (int i = historial.size()-1; i >=0; i--){
-            resultado += historial.get(i).toString() + "\n";
-        }
-     return resultado.length() !=0 ? resultado : "Historial vacio";
-    }
-
-    public int obtenerCantidadAcciones(){
+    public int obtenerCantidadAcciones() {
         return historial.size();
     }
-    public boolean estaVacio(){
+
+    public boolean estaVacio() {
         return historial.isEmpty();
+    }
+
+    public String mostrarHistorial() {
+        if (estaVacio()) return "Historial vacío";
+        StringBuilder sb = new StringBuilder();
+        for (int i = historial.size() - 1; i >= 0; i--) {
+            sb.append(historial.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 }

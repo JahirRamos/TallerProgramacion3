@@ -13,39 +13,35 @@ public class Ventana {
     private HistorialAcciones miHistorial;
 
     public Ventana() {
-      miHistorial=new HistorialAcciones();
+        miHistorial = new HistorialAcciones();
+
+
         registrarboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     String accion = agregueaccionTextfield.getText();
-
-                    miHistorial.registrarAccion(accion);
-
-                    agregueaccionTextfield.setText("");
-                    textArea1.setText(miHistorial.mostrarHistorial());
+                    if (!accion.isEmpty()) {
+                        miHistorial.registrarAccion(accion);
+                        agregueaccionTextfield.setText("");
+                        textArea1.setText(miHistorial.mostrarHistorial());
+                    }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
-        // BOTÓN DESHACER (UNIFICADO - Solo uno)
+
+
         deshacerboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (miHistorial.estaVacio()) {
-                    textArea1.setText("Historial vacio");
+                    textArea1.setText("Historial vacío");
                     JOptionPane.showMessageDialog(null, "No hay acciones para deshacer.");
                 } else {
                     try {
-
-                        String ultima = miHistorial.obtenerUltimaAccion();
-                        System.out.println("Deshaciendo: " + ultima);
-
-
                         miHistorial.deshacerAccion();
-
-
                         textArea1.setText(miHistorial.mostrarHistorial());
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -53,23 +49,25 @@ public class Ventana {
                 }
             }
         });
+
+
         contarAccionboton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              int cantidad = miHistorial.obtenerCantidadAcciones();
-
-              JOptionPane.showMessageDialog(null, "Total de acciones: "+cantidad);
+                int cantidad = miHistorial.obtenerCantidadAcciones();
+                JOptionPane.showMessageDialog(null, "Total de acciones: " + cantidad);
             }
         });
 
     }
 
-    public static void main (String[]args){
-     JFrame frame = new JFrame("Historial acciones");
-     frame.setContentPane(new Ventana().PanelPrincipal);
-     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     frame.pack();
-     frame.setLocationRelativeTo(null);
-     frame.setVisible(true);
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Historial acciones");
+        frame.setContentPane(new Ventana().PanelPrincipal);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
+
 }
