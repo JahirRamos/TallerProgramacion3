@@ -12,7 +12,8 @@ public class HistorialAcciones {
     }
 
     public String obtenerUltimaAccion() {
-        return estaVacio() ? "No hay acciones" : historial.peek();
+        // Mensaje esperado: Sin acciones
+        return estaVacio() ? "Sin acciones" : historial.peek();
     }
 
     public void deshacerAccion() {
@@ -30,7 +31,11 @@ public class HistorialAcciones {
     }
 
     public String mostrarHistorial() {
-        if (estaVacio()) return "Historial vacío";
+        // Mensaje esperado: Historial vacío
+        if (estaVacio()) {
+            return "Historial vacío";
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = historial.size() - 1; i >= 0; i--) {
             sb.append(historial.get(i)).append("\n");
